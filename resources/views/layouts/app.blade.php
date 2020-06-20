@@ -5,15 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>XmForm Task</title>
-    <!-- Fonts -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" >
-    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
     <div class="container">
         @yield('content')
     </div>
+    <script>
+</script>
+<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+
 </body>
 
 </html>

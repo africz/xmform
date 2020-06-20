@@ -19,16 +19,17 @@
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group date">
+            <div class="form-group" >
                 <label for="start_date">Start Date</label>
-                <input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" placeholder="Start Date" value="{{ old('start_date') }}">
+                <input type="text" class="date_picker form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" placeholder="YYYY-mm-dd" value="{{ old('start_date') }}">
                 @error('start_date')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+
             </div>
             <div class="form-group">
-                <label for="end_date">Start Date</label>
-                <input type="date" class="form-control @error('end_date') is-invalid @enderror" id="end_date" name="end_date" placeholder="Start Date" value="{{ old('end_date') }}">
+                <label for="end_date">End Date</label>
+                <input type="text" class="date_picker form-control @error('end_date') is-invalid @enderror" id="end_date" name="end_date" placeholder="YYYY-mm-dd" value="{{ old('end_date') }}">
                 @error('end_date')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
