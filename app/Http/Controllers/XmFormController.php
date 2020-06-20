@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Rules\CompanySymbol;
-use App\Rules\StartDate;
-use App\Rules\EndDate;
+use App\Rules\StartEndDate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\SymbolHistory;
@@ -31,8 +30,7 @@ class XmFormController extends Controller
         ]);
 
 
-        //$this->validate($request, ['start_date' => new StartDate]);
-        //$this->validate($request, ['end_date' => new EndDate]);
+        $this->validate($request, ['start_date' => new StartEndDate($request)]);
         $this->validate($request, ['company_symbol' => new CompanySymbol]);
 
         if ($validator->fails()) {
