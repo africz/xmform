@@ -13,16 +13,16 @@ use Illuminate\Support\Facades\Validator;
 class XmFormController extends Controller
 {
 
-    protected $validationRules = [
-        'company_symbol' => 'required|unique|max:255',
-        'start_date' => 'required',
-    ];
+    // protected $validationRules = [
+    //     'company_symbol' => 'required|unique|max:255',
+    //     'start_date' => 'required',
+    // ];
     
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-        ]);
+         $validator = Validator::make($request->all(), [
+             'email' => 'required|email',
+         ]);
 
         $this->validate($request, ['company_symbol' => new CompanySymbol]);
         $this->validate($request, ['start_date' => new StartDate]);

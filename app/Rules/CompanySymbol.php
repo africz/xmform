@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use App\Nasdaq;
 
 class CompanySymbol implements Rule
 {
@@ -16,6 +17,7 @@ class CompanySymbol implements Rule
         //
     }
 
+
     /**
      * Determine if the validation rule passes.
      *
@@ -25,7 +27,7 @@ class CompanySymbol implements Rule
      */
     public function passes($attribute, $value)
     {
-        //
+        return Nasdaq::getInstance()->verifyCompany($value);
     }
 
     /**
@@ -35,6 +37,6 @@ class CompanySymbol implements Rule
      */
     public function message()
     {
-        return 'The validation xxxerror message.';
+        return 'Invalid Company Symbol!';
     }
 }

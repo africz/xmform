@@ -15,7 +15,9 @@
     <script>
 </script>
 <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
-
+<!-- Laravel Javascript Validation -->
+<script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+{!! JsValidator::formRequest('App\Http\Requests\XmFormRequest', '#XmForm'); !!}
 </body>
 
 </html>

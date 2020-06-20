@@ -5,16 +5,16 @@
         <h1>XM Form Task</h1>
     </div>
     <div class="row">
-        <form action="/submit" method="post">
+        <form action="/submit" method="post" id="XmForm">
             @csrf
             @if ($errors->any())
             <div class="alert alert-danger" role="alert">
-                Please fix the following errors
+                Please fix the following errors!
             </div>
             @endif
             <div class="form-group">
                 <label for="company_symbol">Company Symbol</label>
-                <input type="text" class="form-control @error('company_symbol') is-invalid @enderror" id="company_symbol" name="company_symbol" placeholder="Company Symbol" value="{{ old('company_symbol') }}">
+                <input type="text" class="form-control @error('company_symbol') is-invalid @enderror" id="company_symbol" name="company_symbol" placeholder="" value="{{ old('company_symbol') }}">
                 @error('company_symbol')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -47,3 +47,4 @@
     </div>
 </div>
 @endsection
+
