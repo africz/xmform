@@ -15,11 +15,11 @@
             <div class="form-group">
                 <label for="company_symbol">Company Symbol</label>
                 <input type="text" class="form-control @error('company_symbol') is-invalid @enderror" id="company_symbol" name="company_symbol" placeholder="Company Symbol" value="{{ old('company_symbol') }}">
-                @error('title')
+                @error('company_symbol')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group date" data-provide="datepicker">
+            <div class="form-group date">
                 <label for="start_date">Start Date</label>
                 <input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" placeholder="Start Date" value="{{ old('start_date') }}">
                 @error('start_date')
@@ -30,6 +30,13 @@
                 <label for="end_date">Start Date</label>
                 <input type="date" class="form-control @error('end_date') is-invalid @enderror" id="end_date" name="end_date" placeholder="Start Date" value="{{ old('end_date') }}">
                 @error('end_date')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                @error('email')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
