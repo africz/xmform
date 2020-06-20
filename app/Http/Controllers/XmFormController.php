@@ -8,7 +8,7 @@ use App\Rules\StartDate;
 use App\Rules\EndDate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use App\SymbolHistory;
 
 class XmFormController extends Controller
 {
@@ -17,29 +17,32 @@ class XmFormController extends Controller
     //     'company_symbol' => 'required|unique|max:255',
     //     'start_date' => 'required',
     // ];
-    
+
+
+
     public function store(Request $request)
     {
-         $validator = Validator::make($request->all(), [
-             'email' => 'required|email',
-         ]);
 
+        $validator = Validator::make($request->all(), [
+            'company_symbol' => 'required',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'email' => 'required|email',
+        ]);
+
+
+        //$this->validate($request, ['start_date' => new StartDate]);
+        //$this->validate($request, ['end_date' => new EndDate]);
         $this->validate($request, ['company_symbol' => new CompanySymbol]);
-        $this->validate($request, ['start_date' => new StartDate]);
-        $this->validate($request, ['end_date' => new EndDate]);
 
-         if ($validator->fails()) {
-             return redirect('/')
-                         ->withErrors($validator)
-                         ->withInput();
-         }    
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-    
-        // $data = $request->validate([
-        //     'company_symbol' => 'required|max:255',
-        //     'start_date' => 'required|date|max:255',
-        //     'end_date' => 'required|date|max:255',
-        //     'email' => 'required|date|max:255',
-        // ]);
+        $symHistory = new SymbolHistory($request->company_symbol, $request->start_date, $request->end_date);
+        $xmform_data = json_decode($symHistory->getData());
+        return view('symbol_history', ['xmform' => $xmform_data]);
     }
 }

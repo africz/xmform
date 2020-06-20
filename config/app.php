@@ -3,7 +3,9 @@
 return [
 
     'nasdaq_url' => 'https://pkgstore.datahub.io/core/nasdaq-listings/nasdaq-listed_json/data/a5bc7580d6176d60ac0b2142ca8d7df6/nasdaq-listed_json.json',
-
+    'symbol_history_url'=>'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-historical-data?frequency=1d&filter=history&period1=:period1&period2=:period2&symbol=:symbol',
+    'symbol_history_host'=>'apidojo-yahoo-finance-v1.p.rapidapi.com',
+    'symbol_history_key'=>'083e3e6990msh282c453e60a3767p1d83f2jsna08957eaf118',
     /*
     |--------------------------------------------------------------------------
     | Application Name

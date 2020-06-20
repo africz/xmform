@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Illuminate\Support\Facades\Http;
 
 class Nasdaq
 {
@@ -30,7 +31,7 @@ class Nasdaq
 
     private function getData($url)
     {
-        $json = file_get_contents($url);
+        $json = Http::get($url);
         $this->_symbols = json_decode($json);
     }
 

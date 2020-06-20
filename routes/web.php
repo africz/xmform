@@ -20,20 +20,13 @@ Route::get('/', function () {
     return view('xmform');
 });
 
+Route::get('/history', function () {
+    //$xmform_data = \App\XmForm::all();
+    //return view('xmform', ['xmform' => $xmform_data]);
+    return view('symbol_history');
+});
+
+
 Route::post('/submit', ['as' => 'submit', 'uses' =>
-    'XmFormController@store']);
-
-
-// Route::post('/submit', function (Request $request) {
-//     $data = $request->validate([
-//         'company_symbol' => 'required|max:255',
-//         'start_date' => 'required|date|max:255',
-//         'end_date' => 'required|date|max:255',
-//         'email' => 'required|date|max:255',
-//     ]);
-
-    //$link = tap(new App\Link($data))->save();
-
-    //return redirect('/');
-//});
+'XmFormController@store']);
 
