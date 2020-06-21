@@ -4,18 +4,16 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class StartEndDate implements Rule
+class StartDate implements Rule
 {
-    private $_request = null;
     private $_errmessage = null;
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($req)
+    public function __construct()
     {
-        $this->_request = $req;
     }
 
     /**
@@ -28,12 +26,13 @@ class StartEndDate implements Rule
     public function passes($attribute, $value)
     {
         //convert values to UnixTimeStamp
-        $start_date = \DateTime::createFromFormat('Y-n-j', $this->_request->start_date)->getTimestamp();
-        $end_date = \DateTime::createFromFormat('Y-n-j', $this->_request->end_date)->getTimestamp();
+        $start_date = \DateTime::createFromFormat('Y-n-j', $value)->getTimestamp();
+        $date = new \DateTime();
+        $now = $date->getTimestamp();
         //required, valid date format verified in other Laravel provided rule set in
         //XmFormController.php
-        if ($end_date < $start_date) {
-            $this->_errmessage = "End date must be greater than start date!";
+        if ($start_date > $now) 
+        {
             return false;
         }
         return true;
@@ -46,7 +45,6 @@ class StartEndDate implements Rule
      */
     public function message()
     {
-        //kept error message to flexible if may need to extend validation process in future
-        return $this->_errmessage;
+        return "Start date must be less than current date!";
     }
 }
