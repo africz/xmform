@@ -45,6 +45,6 @@ class StartDate implements Rule
      */
     public function message()
     {
-        return "Start date must be less than current date!";
+        return "Start date must be less or equal than current date!";
     }
 }

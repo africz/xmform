@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use Illuminate\Support\Facades\Http;
 
 class Nasdaq
@@ -15,7 +16,7 @@ class Nasdaq
         } else {
             $_url = config('app.nasdaq_url');
         }
-        
+
         if (!count($this->_symbols)) {
             $this->getData($_url);
         }
@@ -43,6 +44,19 @@ class Nasdaq
                 $retVal = true;
                 break;
             }
+        }
+        return $retVal;
+    }
+    public function getCompanyName($company)
+    {
+        $retVal = null;
+        $i = 0;
+        foreach ($this->_symbols as $key => $value) {
+            if (strcmp($value->Symbol, $company) == 0) {
+                $retVal = $value->{'Company Name'};
+                break;
+            }
+            $i++;
         }
         return $retVal;
     }

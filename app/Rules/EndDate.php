@@ -31,8 +31,7 @@ class EndDate implements Rule
         $now = $date->getTimestamp();
         //required, valid date format verified in other Laravel provided rule set in
         //XmFormController.php
-        if ($end_date < $now) 
-        {
+        if ($end_date > $now) {
             return false;
         }
         return true;
@@ -45,6 +44,6 @@ class EndDate implements Rule
      */
     public function message()
     {
-        return "End date must be greater than current date!";
+        return "End date must be less or equal than current date!";
     }
 }

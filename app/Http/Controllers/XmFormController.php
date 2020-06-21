@@ -9,10 +9,28 @@ use App\Rules\EndDate;
 use App\Rules\StartDate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Mail\Mailer;
 use App\SymbolHistory;
+use App\Mail\XmFormData;
+use Illuminate\Support\Facades\Mail;
 
 class XmFormController extends Controller
 {
+
+    public function create()
+    {
+        return view('xmform');
+    }
+
+    public function send_mail($request,$xmform_data)
+    {
+        $subject = $request->company_symbol;
+        //not finished yet, need to prepare template , sending okay if smtp or other sending methods are set
+        //Mail::to($request->email)->send(new XmFormData($xmform_data,$subject));
+    }
+
+
+
     public function store(Request $request)
     {
 
@@ -36,9 +54,10 @@ class XmFormController extends Controller
         $this->validate($request, ['end_date' => new EndDate]);
         $this->validate($request, ['company_symbol' => new CompanySymbol]);
 
-        
+
         $symHistory = new SymbolHistory($request->company_symbol, $request->start_date, $request->end_date);
         $xmform_data = json_decode($symHistory->getData());
+        $this->send_mail($request,$xmform_data);
         return view('symbol_history', ['xmform' => $xmform_data]);
     }
 }
