@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class SymbolHistory
@@ -19,14 +20,67 @@ class SymbolHistory
         $this->_url = $url;
     }
 
-    public function getData()
+    //		"x-rapidapi-host: apidojo-yahoo-finance-v1.p.rapidapi.com",
+    //"x-rapidapi-key: 083e3e6990msh282c453e60a3767p1d83f2jsna08957eaf118"
+    //CURLOPT_URL => "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-historical-data?frequency=1d&filter=history&period1=1546448400&period2=1562086800&symbol=AMRN",
+
+
+    public function getDataCurl()
+    {
+        $retVal = "";
+        $host = config('app.symbol_history_host');
+        $key = config('app.symbol_history_key');
+
+        $curl = \curl_init();
+        \curl_setopt_array($curl, array(
+            //CURLOPT_URL => "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-historical-data?frequency=1d&filter=history&period1=1546448400&period2=1562086800&symbol=AMRN",
+            CURLOPT_URL => $this->_url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                // "x-rapidapi-host: apidojo-yahoo-finance-v1.p.rapidapi.com",
+                // "x-rapidapi-key: 083e3e6990msh282c453e60a3767p1d83f2jsna08957eaf118"
+                "x-rapidapi-host: " . $host,
+                "x-rapidapi-key: " . $key
+            ),
+        ));
+
+        $response = \curl_exec($curl);
+        $err = \curl_error($curl);
+
+        \curl_close($curl);
+
+        if ($err) {
+            $retVal = "Error #:" . $err;
+            throw new Exception($retVal);
+        } else {
+            $retVal = $response;
+        }
+        return $retVal;
+    }
+
+    public function getDataHttpClient()
     {
         $host = config('app.symbol_history_host');
         $key = config('app.symbol_history_key');
+
         $response = Http::get($this->_url, [
-            'X-RapidAPI-Host' => $host,
-            'X-RapidAPI-Key' => $key
+            'x-rapidapi-host' => $host,
+            'x-rapidapi-key' => $key
         ]);
         return $response;
+    }
+
+    public function getData()
+    {
+        $retVal = $this->getDataCurl();
+        //laravel built in clien return with unathorized error
+        //$retVal = $this->getDataHttpClient();
+        return $retVal;
     }
 }
