@@ -58,6 +58,8 @@ class XmFormController extends Controller
         $symHistory = new SymbolHistory($request->company_symbol, $request->start_date, $request->end_date);
         $xmform_data = json_decode($symHistory->getData());
         $this->send_mail($request,$xmform_data);
-        return view('symbol_history', ['xmform' => $xmform_data]);
+       // dd($xmform_data);
+        $header_data=array('start_date'=>$request->start_date,'end_date'=>$request->end_date,'symbol'=>$request->company_symbol);
+        return view('symbol_history', ['xmbody' => $xmform_data,'xmheader' => $header_data]);
     }
 }

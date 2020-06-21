@@ -24,6 +24,9 @@ class XmFormData extends Mailable
     public function __construct($data,$subject)
     {
         $this->xmform_data = $data;
+        //better to store it of course when first time get it
+        //in verification process due lack of time to finish I made this 
+        //quick solution
         $n = new Nasdaq();
         $this->subject = $n->getCompanyName($subject);
         

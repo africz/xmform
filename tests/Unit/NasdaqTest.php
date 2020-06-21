@@ -1,9 +1,9 @@
 <?php
 
 namespace Tests\Unit;
+use Illuminate\Support\Facades\Config;
 use App\Nasdaq;
 use Tests\TestCase;
-use Illuminate\Contracts\Config;
 
 class NasdaqTest extends TestCase
 {
@@ -11,7 +11,8 @@ class NasdaqTest extends TestCase
     
      public function setUp():void
      {
-         $this->nobj=new Nasdaq();
+        $_url = config('app.nasdaq_url');
+         $this->nobj=new Nasdaq($_url);
      }
 
 
