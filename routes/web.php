@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('xmform');
 });
 
+
 Route::get('/history', function () {
     //$xmform_data = \App\XmForm::all();
     //return view('xmform', ['xmform' => $xmform_data]);
@@ -30,3 +31,5 @@ Route::get('/history', function () {
 Route::post('/submit', ['as' => 'submit', 'uses' =>
 'XmFormController@store']);
 
+Route::post('/', ['as' => 'xmform', 'uses' =>
+'XmFormController@store']);
